@@ -1,0 +1,55 @@
+  * {
+      box-sizing: border-box;
+  }
+  body {
+    background: rgba(158, 158, 158, 0.21);
+  }
+
+  main .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #board {
+    background: grey;
+    border-collapse: collapse;
+    margin: 10px;
+    border: solid 5px saddlebrown;
+  }
+
+  td {
+    position: relative;
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    min-height: 60px;
+    border: solid 1px black;
+    text-align: center;
+  }
+
+  .field-white {
+    background: white;
+  }
+  .field-black {
+    background: grey;
+  }
+
+/*PAWNS*/
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+  }
+
+  img:hover {
+    transform: scale(1.3);
+  }
