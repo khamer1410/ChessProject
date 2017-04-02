@@ -42,8 +42,6 @@
             element.setAttribute('data-rowposition', rowPosition);
             element.setAttribute('data-colposition', colPosition);
             element.setAttribute('data-color', color);
-
-            element.addEventListener('click', ()=> this.hello);
             return element;
         }
     }
