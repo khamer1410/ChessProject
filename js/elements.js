@@ -67,23 +67,3 @@
     }
 
     setNewGame();
-
-//RULES
-    Pawn.prototype.hello = ()=> {
-        console.log('hello');
-    }
-
-//OLD VERSION BACKUP METODOLOGY
-        // function setNewGame() {
-        //     for (let i = 1; i <= 8; i++) {
-        //         let position = fields[7][i];
-        //         let piece = new Pawn(pawnWhite, i, 'white', position);
-        //         position.appendChild(piece.element);
-        //     }
-
-        //     for (let i = 1; i <= 8; i++) {
-        //         let position = fields[2][i];
-        //         let piece = new Pawn(pawnBlack, i, 'black', position);
-        //         position.appendChild(piece.element);
-        //     }
-        // }    
