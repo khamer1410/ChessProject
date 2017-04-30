@@ -1,32 +1,7 @@
     "use strict";
 
 //CREATE BOARD
-//VER 1
-    // function Board() {
-    //     const board = document.querySelector('#board');
-    //     let fields = [];
-    //     for (let i = 1; i <= 8; i++) {
-    //         let tr = document.createElement('tr');
-    //         let trId = tr.id = i * 10;
-    //         fields[i] = [];
-    //         for (let j = 1; j <= 8; j++) {
-    //             let field = new Field(board);
-    //             let td = field.td;
-    //             td.id = trId + j;
-    //             if (i % 2 === j % 2) {
-    //                 td.className = 'field-white';
-    //             } else {
-    //                 td.className = 'field-black';
-    //             }
-    //             fields[i][j] = td;
-    //             tr.appendChild(td);
-    //         }
-    //         board.appendChild(tr);
-    //     }
-    //     return fields;
-    // }
-    // var board = new Board();
-//VER 2
+
     function Board() {
         const board = document.querySelector('#board');
         this.fields = [];
@@ -98,6 +73,7 @@
         for (let i = 48; i <= 55; i++) {
             let startPostion = fieldsArr[i];
             let piece = new Pawn(pawnWhite, i, 'white');
+            startPostion.pawn = piece;
             startPostion.td.appendChild(piece.element);
         }
     }
@@ -118,29 +94,10 @@
     }
 
 
-//OLD VERSION BACKUP METODOLOGY
-        // function setNewGame() {
-        //     for (let i = 1; i <= 8; i++) {
-        //         let position = fields[7][i];
-        //         let piece = new Pawn(pawnWhite, i, 'white', position);
-        //         position.appendChild(piece.element);
-        //     }
+var test = board.fields.forEach(function (el, i) {
+        if (el.pawn) { console.log(i);}
+    });
 
-        //     for (let i = 1; i <= 8; i++) {
-        //         let position = fields[2][i];
-        //         let piece = new Pawn(pawnBlack, i, 'black', position);
-        //         position.appendChild(piece.element);
-        //     }
-        // }    
-
-
-    // let tablica = [];
-    // for (let i = 0; i < 9; i++) {
-    //     board[i].map((el) => {
-    //         el.push(tablica);
-    //     })	
-	// };
-
+//COMMENTS
     // powinieneś mieć strukturę danych reprezentującą szachownicę - dwuwymiarową tablicę obiektów, a w każdym obiekcie referencja do elementu reprezentującego to pole w celu przypinania się na event- y
     // powinieneś mieć także dwie listy (tablice) obiektów pionków, każdy pionek powinien mieć pole przechowujące referencję do elementu IMG, który go reprezentuje także w celu przypięcia do event - ów
->>>>>>> rules
