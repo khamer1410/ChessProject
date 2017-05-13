@@ -1,10 +1,16 @@
     "use strict";
 
+    let activePawn = {};
+    let activeField = {};
+    let fieldWithFigure = {};
+    let fieldWithoutFigure = {};
+
+
 //CREATE BOARD
 
     function Board() {
-        const board = document.querySelector('#board');
         this.fields = [];
+        const board = document.querySelector('#board');
         let tr;
         let rowNo = 0;
         for (let i = 0; i < 64; i++) {
@@ -26,15 +32,28 @@
 
     var board = new Board();
 
-
-//CREATE FIELDS 
+//CLASES
+    //CREATE FIELDS 
     function Field(board) {
         this.board = board;
         this.td = document.createElement('td');
-        this.td.addEventListener('click', (e)=> {console.log(e.target)});  
+        this.td.addEventListener('click', (e)=> {  
+            console.log(this);
+            if (this.pawn) {
+                fieldWithFigure = this;
+            } else {
+                fieldWithoutFigure = this;
+            }            
+
+            if (activePawn && (this == fieldWithoutFigure)) {
+                this.pawn = activePawn;
+                delete fieldWithFigure.pawn;
+            }
+           updateView();
+        });  
     }
 
-//PAWNS LIST
+    //PAWNS LIST
     function Pawn(type, id, color, rowPosition, colPosition) {
         let self = this;
         this.type = type;
@@ -48,16 +67,16 @@
             element.classList.add(color);
             element.id = `p${id}`;
 
-            element.addEventListener('click', function(el) {
-                console.log(this);
+            element.addEventListener('click', function(e) {
+                activePawn = self;
                 console.log(self);
-                console.log(el);
-                return self;               
+                console.log(e);              
             });
             return element;
         }
     }
 
+//PAWNS POSITION AND VIEW UPDATE
     function setNewGame() {
         let pawnWhite = 'elements/pawnW';
         let pawnBlack = 'elements/pawnB';
@@ -79,25 +98,64 @@
     }
     setNewGame();
 
-//RULES
-    Pawn.prototype.hello = ()=> {
-        console.log('hello');
+    function updateView() {
+        const boardFields = board.fields;
+        boardFields.forEach((el, i) => {          
+            if (el.pawn) {
+                const pawnElement = el.pawn.element;
+                el.td.appendChild(pawnElement);        
+            }
+        });
+    }
+
+    function updateView2() {
+        const boardFields = board.fields;
+        for (let i = 0; i < board.fields.length; i++) {
+            const field = board.fields[i];
+            if (field.pawn) {
+                field.td.appendChild(field.pawn.element);
+            }       
+        }
+    }
+
+
+//RULES AND TEST PLAYGROUND
+    Pawn.prototype = {
+        sayHello: ()=> {
+            console.log('hello');
+        }
     }
 
     Field.prototype = {
         catchMove : (e)=> {
             console.log(e);
-            console.log(e.target);
-            
+            console.log(e.target);      
 
         }
     }
 
+    // function sayHello() {
+    //     console.log('hello');
+    // }
 
-var test = board.fields.forEach(function (el, i) {
-        if (el.pawn) { console.log(i);}
-    });
+// var test = board.fields.forEach(function (el, i) {
+//         if (el.pawn) { console.log(i);}
+//         el.addEventListener
+//     });
 
-//COMMENTS
-    // powinieneś mieć strukturę danych reprezentującą szachownicę - dwuwymiarową tablicę obiektów, a w każdym obiekcie referencja do elementu reprezentującego to pole w celu przypinania się na event- y
-    // powinieneś mieć także dwie listy (tablice) obiektów pionków, każdy pionek powinien mieć pole przechowujące referencję do elementu IMG, który go reprezentuje także w celu przypięcia do event - ów
+
+
+//TODO: tablica pionków
+//TODO: funkcja umieszcająca pionki na ich pozycjach
+
+function getField() {
+    const index = self.y * 8 + self.x;
+    return index;
+}   
+
+function getPosition(index) {
+    let x = index % 8;
+    let y = Math.floor(index / 8);
+    // this.x = x;
+    // this.y = y;
+}

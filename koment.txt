@@ -1,0 +1,17 @@
+//COMMENTS
+ powinieneœ mieæ strukturê danych reprezentuj¹c¹ szachownicê - dwuwymiarow¹ tablicê obiektów, a w ka¿dym obiekcie referencja do elementu reprezentuj¹cego to pole w celu przypinania siê na event- y
+    // powinieneœ mieæ tak¿e dwie listy (tablice) obiektów pionków, ka¿dy pionek powinien mieæ pole przechowuj¹ce referencjê do elementu IMG, który go reprezentuje tak¿e w celu przypiêcia do event - ów
+
+//i za³ó¿my, ¿e masz teraz dowolny obiekt Pawn - nie wiesz gzie on jest na planszy i chcesz siê dowiedzieæ
+//to mo¿esz przeszukaæ fields i go znaleŸæ i mieæ indeks wiersza i kolumny
+
+Grzegorz Wasiak (g.wasiak@gmail.com)
+masz 8x8 = 64 pola
+let index = 13;
+let x = index % 8;
+let y = Math.flood(index / 8);
+wg tego wzoru mo¿na obliczyæ wiersz i kolumnê maj¹c dowolny index w tablicy jednowymiarowej 64- elementowej
+i ten wzór da siê odwróciæ
+index = y * 8 + x;
+widzisz to?
+
