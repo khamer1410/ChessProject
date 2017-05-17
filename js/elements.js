@@ -5,8 +5,11 @@
     let fieldWithFigure = {};
     let fieldWithoutFigure = {};
 
+    const clickedFields = [];
+
 
 //CREATE BOARD
+    var board = new Board();
 
     function Board() {
         this.fields = [];
@@ -19,7 +22,7 @@
                 board.appendChild(tr);
                 rowNo ++;
             }
-            let field = this.fields[i] = new Field();
+            let field = this.fields[i] = new Field(this, i);
             let td = field.td;
             if (rowNo % 2) {
                 i % 2 ? (td.className = 'field-white') : (td.className = 'field-black');
@@ -30,12 +33,11 @@
         }
     }
 
-    var board = new Board();
-
 //CLASES
     //CREATE FIELDS 
-    function Field(board) {
+    function Field(board, number) {
         this.board = board;
+        this.no = number;
         this.td = document.createElement('td');
         this.td.addEventListener('click', (e)=> {  
             console.log(this);
@@ -54,16 +56,32 @@
     }
 
     //PAWNS LIST
-    function Pawn(type, id, color, rowPosition, colPosition) {
+    const elementsFolder = 'elements/';
+    const figureTypes = {
+        pawn: {
+            shape: {
+                white: elementsFolder + 'pawnW.svg',
+                black: elementsFolder + 'pawnB.svg',
+            }
+        },
+        knight: {
+            shape: {
+                white: elementsFolder + 'pawnW.svg',
+                black: elementsFolder + 'pawnB.svg',
+            }
+        }     
+    };
+
+    function Pawn(type, color, id) {
         let self = this;
         this.type = type;
         this.id = id;
         this.color = color;
-        this.element = createElement(type, color, id, rowPosition, colPosition);
+        this.element = createElement(type, color, id);
         
-        function createElement(shape, color, id, rowPosition, colPosition) {
+        function createElement(type, color, id) {
             let element = document.createElement('img');
-            element.src = `${shape}.svg`;
+            element.src = figureTypes[type].shape[color];
             element.classList.add(color);
             element.id = `p${id}`;
 
@@ -78,22 +96,28 @@
 
 //PAWNS POSITION AND VIEW UPDATE
     function setNewGame() {
-        let pawnWhite = 'elements/pawnW';
-        let pawnBlack = 'elements/pawnB';
         const fieldsArr = board.fields;
 
-        for (let i = 8; i <= 15; i++) {
+        for (let i = 0; i <= 64; i++) {
             let startPostion = fieldsArr[i];
-            let piece = new Pawn(pawnBlack, i, 'black');
-            startPostion.pawn = piece;
-            startPostion.td.appendChild(piece.element);
-        }
+            let piece = false;
 
-        for (let i = 48; i <= 55; i++) {
-            let startPostion = fieldsArr[i];
-            let piece = new Pawn(pawnWhite, i, 'white');
-            startPostion.pawn = piece;
-            startPostion.td.appendChild(piece.element);
+            if (i >= 8 && i <= 15) {
+                piece = new Pawn('pawn', 'black', i);
+            }
+
+            else if (i >= 48 && i <= 55) {
+                piece = new Pawn('pawn', 'white', i);
+            } 
+            
+            else {
+                continue;
+            }
+
+            if (piece) {
+                startPostion.pawn = piece;
+                startPostion.td.appendChild(piece.element); 
+            }
         }
     }
     setNewGame();
@@ -103,8 +127,10 @@
         boardFields.forEach((el, i) => {          
             if (el.pawn) {
                 const pawnElement = el.pawn.element;
-                el.td.appendChild(pawnElement);        
+                el.td.appendChild(pawnElement);     
             }
+//        fieldWithFigure = {};
+//        fieldWithoutFigure = {};
         });
     }
 
@@ -158,4 +184,5 @@ function getPosition(index) {
     let y = Math.floor(index / 8);
     // this.x = x;
     // this.y = y;
-}
+};
+

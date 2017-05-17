@@ -1,8 +1,44 @@
   * {
       box-sizing: border-box;
   }
+
   body {
     background: rgba(158, 158, 158, 0.21);
+  }
+
+  .modal {
+    display: flex;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: transparent;
+    transition: 1s;
+  }
+  .modal:hover .right-wing {
+    transform: translateX(0%);
+  }
+  .modal:hover .left-wing {
+    transform: translateX(0%);
+  }
+
+  .modal .left-wing {
+    height: 100%;
+    width: 50%;
+    background: black;
+    transform: translateX(-50%);
+    transition: 1s;
+  }
+
+  .modal .right-wing {
+    height: 100%;
+    width: 50%;
+    background: silver;
+    transform: translateX(50%);
+    transition: 1s;
   }
 
   main .container {
